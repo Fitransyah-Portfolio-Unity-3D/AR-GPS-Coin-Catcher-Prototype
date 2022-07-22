@@ -6,7 +6,16 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Project/Scenes/AR_GPS_MVP_V1.unity
+    path: Assets/_Project/_Scenes/LoginScene0.unity
+    guid: 4ae2723408b85d049a0b39b6494ff0b0
+  - enabled: 1
+    path: Assets/_Project/_Scenes/LoginScene1.unity
+    guid: d853dcfde61356c468425e37237b6ef3
+  - enabled: 1
+    path: Assets/_Project/_Scenes/LoginScene2.unity
+    guid: c4526b2715ad1c54b9fcefbc0aa0c069
+  - enabled: 1
+    path: Assets/_Project/_Scenes/GameScene_V1.1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     AR Foundation RemoteARFoundationRemoteLoaderSettings: {fileID: 11400000, guid: b0acb8ddb56ac1c4eb280a7f8e296956, type: 2}
