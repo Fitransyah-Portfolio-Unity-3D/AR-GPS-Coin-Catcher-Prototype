@@ -44,9 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   email: {fileID: 0}
-  phoneCode: {fileID: 0}
-  phoneNumber: {fileID: 0}
   password: {fileID: 0}
-  loginUrl: https://xrun-test-server.herokuapp.com/login
   loginManager: {fileID: 0}
   loginButton: {fileID: 0}

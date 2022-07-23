@@ -51,6 +51,7 @@ public class CoinManager : MonoBehaviour
         };
         GameObject objectToPlaced =  Instantiate(prefabsToSpawn);
         PlaceAtLocation.AddPlaceAtComponent(objectToPlaced, loc, opts, useDebugMode : true);
+        
 
     }
     Location RandomSpawnPoint(int indexSpawnerLocation)
@@ -64,6 +65,7 @@ public class CoinManager : MonoBehaviour
     {
         // take from the server here
         // coinCollected = coinAmounFromServer
+        // call my  place at locations here, Call()
     }
     public void UpdateCoin() // Called by every Coin 
     {

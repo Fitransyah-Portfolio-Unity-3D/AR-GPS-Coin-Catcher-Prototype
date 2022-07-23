@@ -41,33 +41,33 @@ public class LoginManager2 : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    string textFor401 = "Anda belum terdaftar, silahkan ke halaman pendafataran";
-    public void ActionAfterRequest(string statusCode)
+    string no = "Anda belum terdaftar, silahkan ke halaman pendafataran";
+    public void ActionAfterRequest(string result)
     {
-        //switch (statusCode)
-        //{
-        //    case 200:
-
-        //        // Go to Game
-        //        SceneManager.LoadScene(3);
-        //        break;
-
-        //    case 401:
-        //        // prompt panel animation up
-        //        // update text from panel up
-        //        promptText.text = textFor401;
-        //        if (promptPanelCanvas.anchoredPosition.y == -700f)
-        //        {
-        //            promptPanelCanvas.DOAnchorPosY(0f, 0.75f, true);
-        //        }
-        //        break;
-        //    default: return;
-        //}
-        promptText.text = statusCode;
-        if (promptPanelCanvas.anchoredPosition.y == -700f)
+        switch (result)
         {
-            promptPanelCanvas.DOAnchorPosY(0f, 0.75f, true);
+            case "OK":
+
+                // Go to Game
+                SceneManager.LoadScene(3);
+                break;
+
+            case "NO":
+                // prompt panel animation up
+                // update text from panel up
+                promptText.text = no;
+                if (promptPanelCanvas.anchoredPosition.y == -700f)
+                {
+                    promptPanelCanvas.DOAnchorPosY(0f, 0.75f, true);
+                }
+                break;
+            default: return;
         }
+        //promptText.text = result;
+        //if (promptPanelCanvas.anchoredPosition.y == -700f)
+        //{
+        //    promptPanelCanvas.DOAnchorPosY(0f, 0.75f, true);
+        //}
     }
 
 

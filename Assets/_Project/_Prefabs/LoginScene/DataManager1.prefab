@@ -44,13 +44,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   email: {fileID: 0}
+  phoneCode: {fileID: 0}
   phoneNumber: {fileID: 0}
-  password: {fileID: 0}
+  passwordInputField: {fileID: 0}
   region: {fileID: 0}
   referral: {fileID: 0}
-  phoneCode: {fileID: 0}
   ageValue: 
   sexValue: 
-  registerUrl: https://xrun-test-server.herokuapp.com/register
   loginManager: {fileID: 0}
   registerButton: {fileID: 0}

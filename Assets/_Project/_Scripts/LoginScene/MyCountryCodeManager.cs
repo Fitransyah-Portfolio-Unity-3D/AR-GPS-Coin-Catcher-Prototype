@@ -13,7 +13,7 @@ public class MyCountryCodeManager : MonoBehaviour
     List<string> countryCodesList;
     public TMP_Dropdown MyCountryCode;
     MyData code;
-    MyCountryName name;
+    new MyCountryName name;
     string countryCode;
     void Start()
     {

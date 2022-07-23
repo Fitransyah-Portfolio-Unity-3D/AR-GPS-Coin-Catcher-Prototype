@@ -41,9 +41,9 @@ public class LoginManager1 : MonoBehaviour
     }
 
 
-    string textFor406 = "Email yang anda gunakan sudah terdaftar.\n Silahkan masuk melalui 'Login page'";
-    string textFor201 = "Anda berhasil terdaftar!\n Silahkan masuk dengan akun baru Anda";
-    string textFor400 = "Data yang Anda masukkan salah, silahkan pastikan mengisi email, nomor telfon dan password";
+    //string textFor406 = "Email yang anda gunakan sudah terdaftar.\n Silahkan masuk melalui 'Login page'";
+    //string textFor201 = "Anda berhasil terdaftar!\n Silahkan masuk dengan akun baru Anda";
+    //string textFor400 = "Data yang Anda masukkan salah, silahkan pastikan mengisi email, nomor telfon dan password";
     public void ActionAfterRequest(string statusCode)
     {
         //switch (statusCode)
