@@ -56,3 +56,22 @@ Check latest builds on your Android Phone [here](https://drive.google.com/file/d
 - Sound design for login flow
 
 > Last update 22 July 2022
+
+## Connecting to Server
+- PlaceAtLocations for primary spawn mechanic
+- Testing, Send and Receive request from API
+- Shaping the massive spawn code (MyPlaceAtLocation.cs)
+- Calibrating spawn height
+- Apply collider + physics to Coin Model
+
+## Solidifying Core Gameplay
+- Refactoring PlaceAtLocations script, cleaner code and add event Action for every spawn iteration  
+- Refactoring Player, Coin and CoinManager relationship :  
+    - Player only trigger blinking and taken in Coin
+    - Coin will destroy itself
+    - Player activate event action OnCoinTaken
+    - CoinManager listen to the event and apply necessary sequences (update local variable, update UI, play sound)
+    - Using CoinData class now every Coin Instance placed in GeoLocation has server value
+- Lay foundation for next feature : Arrow Power Up (100 m)
+
+> Last Update 26 July 2022

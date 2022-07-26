@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SoundToggle()
+    public void BacksoundToggle()
     {
         if (!audioManager.backsound.isPlaying)
         {
@@ -36,5 +36,10 @@ public class GameManager : MonoBehaviour
     public void ExitGame()
     {
         SceneManager.LoadScene(0);
+    }
+    public void ReloadScene()
+    {
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentScene);
     }
 }

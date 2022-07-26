@@ -50,10 +50,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   yRotationSpeed: 1
-  thisCoinsMeshes: []
+  delayTime: 3.5
   blinking: 0
   coinTaken: 0
-  properties: {fileID: 0}
 --- !u!135 &5138374908704727994
 SphereCollider:
   m_ObjectHideFlags: 0

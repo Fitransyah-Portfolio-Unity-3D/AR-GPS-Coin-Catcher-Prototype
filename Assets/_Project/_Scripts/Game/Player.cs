@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Web;
+using UnityEngine.Networking;
 
 // This class placed in independent Object called Player
 // Exist in hierarchy
@@ -9,10 +12,11 @@ using TMPro;
 // This class handle : 
 // Raycasting from centre of screen
 // Play Crosshair Animation when detecting coin
-// Destroying coin when player take it (while detected)
+// checking coin status when collecting/server check
+// if true do trigger :
 // Trigger bool in coin blinking
 // Trigger bool in coin taken
-// Removing the collider of coin taken
+// if false show error messages
 
 public class Player : MonoBehaviour
 {
@@ -36,6 +40,8 @@ public class Player : MonoBehaviour
     float coinDestroyDelay;
     [SerializeField]
     bool arrowPowerOn;
+
+    public event Action OnPlayerTakeCoin;
 
     private void Awake()
     {
@@ -77,19 +83,23 @@ public class Player : MonoBehaviour
         // if its hit something
         if (Physics.Raycast(rayOrigin, out hittarget, raycastDistance))
         {
-            // get "Coin" script component to alter values
+            // Version 1
+            // get "Coin" script component to trigger states
             Coin coin = hittarget.collider.gameObject.GetComponent<Coin>();
             coin.blinking = true;
             coin.coinTaken = true;
 
-            // destroy its collider to prevent multiple trigger
-            coin.GetComponent<Collider>().enabled = false;
-            Destroy(coin.gameObject, coinDestroyDelay);
+            OnPlayerTakeCoin();
+
+            // Version 2
+            // Freeze the game, panel up
+            // StartCo-Routine Validating Coin
+            
         }
     }
     public void ArrowButtonOnClicked()
     {
-        // animation / effet / sounds
+        // animation / effect / sounds
         // visibility to coin = 100 m
         // raycastDistamce = arrowRaycastDistance
         // yield return 10s
@@ -100,6 +110,55 @@ public class Player : MonoBehaviour
     }
     public void HammerButtonOnClicked()
     {
+        // 
+    }
+    IEnumerator ValidatingCoin()
+    {
+        // building query
+        string endpoint = "https://app.xrun.run/gateway.php?";
+        var uriBuilder = new UriBuilder(endpoint);
+        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+        //query["act"] = "coinmapping";
+        //query["member"] = "1102";
+        //query["limit"] = spawnAmount.ToString();
+        //query["lat"] = latitudeApi.ToString();
+        //query["lng"] = longitudeApi.ToString();
+        uriBuilder.Query = query.ToString();
+        endpoint = uriBuilder.ToString();
+        Debug.Log("Final Uri : \n" + endpoint);
+       
+
+        // web request to server
+        using (UnityWebRequest www = UnityWebRequest.Get(endpoint))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+                // Updating text panel with network error
+            }
+            else
+            {
+                
+                if (www.downloadHandler.text == "NO")
+                {
+                    // updating panel with error message
+                    // close panel
+                    // return
+                }
+                else
+                {
+                    // get "Coin" script component to trigger states
+                    //Coin coin = hittarget.collider.gameObject.GetComponent<Coin>();
+                    //coin.blinking = true;
+                    //coin.coinTaken = true;
+
+                    //OnPlayerTakeCoin();
+                }
+
+            }
+        }
 
     }
     IEnumerator ArrowCheatOn()

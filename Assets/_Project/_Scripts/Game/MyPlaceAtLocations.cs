@@ -30,18 +30,14 @@ public class MyPlaceAtLocations : PlaceAtLocations
     [SerializeField] GameObject myPrefab;
     [SerializeField] Camera arCamera;
 
-
     [Space(2.0f)]
     [Header("Spawning Setup")]
+    ServerCoinData serverRawData;
+
     [SerializeField]int spawnAmount;
     double latitudeApi;
     double longitudeApi;
-    // string endpoint = $"https://app.xrun.run/gateway.php?act=coinmapping&member=1102&limit=10&lat=-6.2564442948084915&lng=106.85404328836381";
-    ServerCoinData serverRawData;
-    //List<PlaceAtLocation.LocationSettingsData> LocationsCreated = new List<PlaceAtLocation.LocationSettingsData>();
-    [SerializeField] Transform parentForWorldInstance;
-
-
+    
     [Space(2.0f)]
     [Header("Debugging")]
     [SerializeField]
@@ -49,10 +45,11 @@ public class MyPlaceAtLocations : PlaceAtLocations
     [SerializeField]
     TMP_Text debugText;
 
+    public event Action OnCoinSpawn;
+
     public void Test()
     {
         StartCoroutine(CallCoins());
-        Coin coin = new Coin();
     }
 
     // ARLocationManager.Instance.GetLocationForWorldPosition() --> to get lat lon from Unity transform
@@ -113,6 +110,7 @@ public class MyPlaceAtLocations : PlaceAtLocations
         // give value to each instance of LocationSettingData: 
         // LocationInputType, LocationData, Location etc
         // Place it into GeoLocation
+        // notifiy listener/subscriber for OnCoinSpawn
         System.Random rand = new System.Random();
         for (int i = 0; i < serverRawData.data.Count; i++)
         {
@@ -149,7 +147,7 @@ public class MyPlaceAtLocations : PlaceAtLocations
 
             locationData.Location.Latitude = double.Parse(prefabCoinDataComponent.Lat, System.Globalization.CultureInfo.InvariantCulture);
             locationData.Location.Longitude = double.Parse(prefabCoinDataComponent.Lng, System.Globalization.CultureInfo.InvariantCulture);
-            locationData.Location.Altitude = rand.NextDouble() + 1.15;
+            locationData.Location.Altitude = (rand.NextDouble() + 0.2);
             locationData.Location.AltitudeMode = AltitudeMode.GroundRelative;
             locationData.Location.Label = prefabCoinDataComponent.Coin;
 
@@ -161,24 +159,10 @@ public class MyPlaceAtLocations : PlaceAtLocations
 
             AddLocation(locationSettinsData.LocationInput.Location, myPrefab);
 
-            //LocationsCreated.Add(locationSettinsData);
+            OnCoinSpawn();
+
         }
 
-        //Debug.Log("Finish CallCoins Step 1");
-        // 2. Instantiate and Place At Location
-        // for every index of List<PlaceAtLocation.LocationSettingsData>
-        // caching newLoc = item.GetLocation()
-        // AddLocation(newLoc, withprefab) --> my costum overload
-
-        //foreach (var entry in LocationsCreated)
-        //{
-        //    var newLoc = entry.GetLocation();
-        //    CoinData data = new CoinData();
-        //    Coin prefabData = myPrefab.GetComponent<Coin>();
-        //    prefabData.properties = data;
-        //    AddLocation(newLoc, myPrefab);
-        //}
-        //Debug.Log("Finish CallCoins Step 2 - End");
     }
 
     public void UpdatingSpawnAmount()
@@ -193,29 +177,3 @@ public class ServerCoinData
     public List<CoinData> data;
 }
 #endregion
-
-// XRUN COIN JSON DATA
-//"coin":"11112316",
-//"cointype":"9411",
-//"amount":"0",
-//"countlimit":"1",
-//"lng":"106.853741",
-//"lat":"-6.256539",
-//"distance":"35.22395892338059"
-//,"advertisement":"668",
-//"brand":"XRUN",
-//"title":"xrun",
-//"contents":"\u3153\u3153",
-//"currency":"11",
-//"adcolor1":"#283750",
-//"adcolor2":"#283750",
-//"coins":"0.01",
-//"adthumbnail":"2411",
-//"adthumbnail2":"2412",
-//"tracking":null,
-//"isbigcoin":"0",
-//"symbol":"XRUN",
-//"brandlogo":"2413",
-//"symbolimg":"2465",
-//"exad":null,
-//"exco":null
