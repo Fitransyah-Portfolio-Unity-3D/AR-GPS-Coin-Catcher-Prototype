@@ -21,7 +21,8 @@ public class UserLocation : MonoBehaviour
     private void Update() //updating runtime
     {      
         Location cameraLocation = ARLocationManager.Instance.GetLocationForWorldPosition(arCamera.transform.position);
-        userLocationTextLatitude.text = cameraLocation.Latitude.ToString();
-        userLocationTextLongitude.text = cameraLocation.Longitude.ToString();
+        userLocationTextLatitude.text = "Lat : " + cameraLocation.Latitude.ToString();
+        userLocationTextLongitude.text = "Lng : " + cameraLocation.Longitude.ToString();
     }
+
 }

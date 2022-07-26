@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     
     public AudioClip loginCreateMenuClip;
     public AudioClip backsoundClip;
+    public AudioClip coinTakenClip;
     public AudioSource onePlay;
     public AudioSource backsound;
 
@@ -26,6 +27,10 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         backsound.clip = backsoundClip;
+    }
+    public void UICoinTakenSound()
+    {
+        onePlay.PlayOneShot(coinTakenClip);
     }
 
 }

@@ -9,32 +9,51 @@ using UnityEngine;
 // coin spin
 // coin blinking called by Player
 // coin taken called by Player
+// sending data to coin manager if taken
 public class Coin : MonoBehaviour
 {
-    [SerializeField]
-    float yRotationSpeed;
+
     GameObject coin;
     Animator thisCoinAnimator;
-    [SerializeField]
     MeshRenderer[] thisCoinsMeshes;
+    CoinData thisCoinData;
 
-
+    [SerializeField]
+    float yRotationSpeed;
     public bool blinking;
     public bool coinTaken = false;
 
     void Awake()
     {
+        // caching
         coin = this.gameObject;
         thisCoinAnimator = coin.GetComponent<Animator>();
-        thisCoinsMeshes = this.gameObject.GetComponentsInChildren<MeshRenderer>();       
+        thisCoinsMeshes = this.gameObject.GetComponentsInChildren<MeshRenderer>();
+        thisCoinData = GetComponent<CoinData>();
+
+        // define y axis rotation
+        int randomSwitch = Random.Range(1, 3);
+        if (randomSwitch == 1)
+        {
+            yRotationSpeed = 1f;
+        }
+        else
+        {
+            yRotationSpeed = -1f;
+        }
+
+        
     }
     void Update()
     {
+        // rotating
         coin.transform.Rotate(0, yRotationSpeed, 0, Space.World);
 
+        // blinking animation or other effect here
         if (!blinking) return;
         thisCoinAnimator.SetBool("isBlinking", true);
-        // call coin controller public function update coin here
+
+        // call CoinManager if tak
         CoinManager coinManager = GameObject.FindGameObjectWithTag("CoinManager").GetComponent<CoinManager>();
         if (coinTaken)
         {
