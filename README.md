@@ -75,3 +75,11 @@ Check latest builds on your Android Phone [here](https://drive.google.com/file/d
 - Lay foundation for next feature : Arrow Power Up (100 m)
 
 > Last Update 26 July 2022
+
+## Experimenting with Mapbox Route 3D
+- Costum script "Route Controller" to handle GPS Direction API from Mapbox
+- Adjusment from original sample script
+- Adding feature for selecting 5 nearest coins for direction API
+- Grab Coins and Pick Coin Button for Debugging
+
+> Last Update 27 July 2022

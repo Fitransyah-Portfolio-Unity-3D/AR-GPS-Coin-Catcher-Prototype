@@ -6,7 +6,7 @@ using ARLocation;
 public class MyPlaceAtLocation : MonoBehaviour
 {
     [SerializeField]
-    GameObject prefabsToSpawn;
+    UnityEngine.GameObject prefabsToSpawn;
     [SerializeField]
     List<Transform> spawnerLocations = new List<Transform>();
 
@@ -22,7 +22,7 @@ public class MyPlaceAtLocation : MonoBehaviour
             AltitudeMode = AltitudeMode.GroundRelative
         };
 
-        var opts = new PlaceAtLocation.PlaceAtOptions()
+        var opts = new ARLocation.PlaceAtLocation.PlaceAtOptions()
         {
             HideObjectUntilItIsPlaced = true,
             MaxNumberOfLocationUpdates = 2,

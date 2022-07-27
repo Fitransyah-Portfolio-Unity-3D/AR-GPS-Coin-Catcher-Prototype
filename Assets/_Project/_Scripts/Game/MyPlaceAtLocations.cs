@@ -27,7 +27,7 @@ public class MyPlaceAtLocations : PlaceAtLocations
 {
     [Space(2.0f)]
     [Header("Gameobject Setup")]
-    [SerializeField] GameObject myPrefab;
+    [SerializeField] UnityEngine.GameObject myPrefab;
     [SerializeField] Camera arCamera;
 
     [Space(2.0f)]
@@ -142,7 +142,7 @@ public class MyPlaceAtLocations : PlaceAtLocations
             prefabCoinDataComponent.Exco = serverRawData.data[i].Exco;
 
             LocationData locationData = ScriptableObject.CreateInstance<LocationData>();
-            PlaceAtLocation.LocationSettingsData locationSettinsData = new PlaceAtLocation.LocationSettingsData();
+            ARLocation.PlaceAtLocation.LocationSettingsData locationSettinsData = new ARLocation.PlaceAtLocation.LocationSettingsData();
             locationData.Location = new Location();
 
             locationData.Location.Latitude = double.Parse(prefabCoinDataComponent.Lat, System.Globalization.CultureInfo.InvariantCulture);
