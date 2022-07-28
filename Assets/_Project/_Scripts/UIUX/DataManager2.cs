@@ -39,9 +39,9 @@ public class DataManager2 : MonoBehaviour
         // API Name : login_API/login-checker-email ==> Valid email
         // sample parameter
         //"act=login-01&email=ggg@hhh.com&pin=111!!!aaaAAA&TP=1"
-        //string parameter = "https://app.xrun.run/gateway.php?act=login-checker&email=TestTestTest@Test.com&pin=xrun123!";
+        //string parameter = "https://app.xrun.run/gateway.php?act=login-checker&email=TestTestTest@StartPopulateCoins.com&pin=xrun123!";
         //string parameter = "https://app.xrun.run/gateway.php?act=login-01&email=dbals33333@naver.com&pin=xrun123!&member=1680&extrastr=2f0zCZLdWk&tp=1&mobile=456398731";
-        //string parameterOnly = "act=login-checker&email=TestTestTest@Test.com&pin=xrun123!";
+        //string parameterOnly = "act=login-checker&email=TestTestTest@StartPopulateCoins.com&pin=xrun123!";
         string paramsOne = $"act=login-checker&";
         string paramsTwo = $"email={email.text}&";
         string paramsThree = $"pin={password.text}";

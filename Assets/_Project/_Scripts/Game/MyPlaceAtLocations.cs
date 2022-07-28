@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Web;
 using UnityEngine;
-using ARLocation;
-using UnityEngine.Networking;
-using Newtonsoft.Json;
 using UnityEngine.UI;
-using System.Collections.Specialized;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using ARLocation;
+using Newtonsoft.Json;
 using TMPro;
 
 
@@ -27,12 +27,15 @@ public class MyPlaceAtLocations : PlaceAtLocations
 {
     [Space(2.0f)]
     [Header("Gameobject Setup")]
-    [SerializeField] UnityEngine.GameObject myPrefab;
+    [SerializeField] GameObject myPrefab;
     [SerializeField] Camera arCamera;
+    [SerializeField] Transform parentContainer;
 
     [Space(2.0f)]
     [Header("Spawning Setup")]
     ServerCoinData serverRawData;
+    [TextArea(5,8)]
+    public string serverResults;
 
     [SerializeField]int spawnAmount;
     double latitudeApi;
@@ -43,18 +46,34 @@ public class MyPlaceAtLocations : PlaceAtLocations
     [SerializeField]
     InputField spawnAmountInput;
     [SerializeField]
-    TMP_Text debugText;
+    TMP_Text debugText ;
 
     public event Action OnCoinSpawn;
+    public event Action OnCoinSpawnStartPopulating;
 
-    public void Test()
+    public void StartPopulateCoins()
     {
-        StartCoroutine(CallCoins());
+        //OnCoinSpawnStartPopulating();
+        if (spawnAmount == 0 && serverRawData == null)
+        {
+            Debug.LogWarning("No data in server, so call server again");
+            debugText.text = "No data in server, so call server again";
+            int randomSpawnAmount = UnityEngine.Random.Range(50, 151);
+            spawnAmount = randomSpawnAmount;
+            StartCoroutine(CallServer(spawnAmount));
+        }
+        else if (serverRawData != null)
+        {
+            Debug.LogWarning("Server data still exist so populate from last data");
+            debugText.text = "Server data still exist so populate from last data";
+            PopulateCoins(serverRawData);
+        }
     }
-
+ 
     // ARLocationManager.Instance.GetLocationForWorldPosition() --> to get lat lon from Unity transform
-    public IEnumerator CallCoins()
+    IEnumerator CallServer(int spawnAmountFinal)
     {
+        yield return new WaitForSeconds(3f);
         // retreive player geo location
         Location playerLocation = ARLocationManager.Instance.GetLocationForWorldPosition(arCamera.gameObject.transform.position);
         latitudeApi = playerLocation.Latitude;
@@ -73,13 +92,13 @@ public class MyPlaceAtLocations : PlaceAtLocations
         var query = HttpUtility.ParseQueryString(uriBuilder.Query);
         query["act"] = "coinmapping";
         query["member"] = "1102";
-        query["limit"] = spawnAmount.ToString();
+        query["limit"] = spawnAmountFinal.ToString();
         query["lat"] = latitudeApi.ToString();
         query["lng"] = longitudeApi.ToString();
         uriBuilder.Query = query.ToString();
         endpoint = uriBuilder.ToString();
         Debug.Log("Final Uri : \n" + endpoint);
-        Debug.Log("Spanwing" + spawnAmount);
+        Debug.Log("Spanwing" + spawnAmountFinal);
 
         // web request to server
         using (UnityWebRequest www = UnityWebRequest.Get(endpoint))
@@ -97,9 +116,15 @@ public class MyPlaceAtLocations : PlaceAtLocations
                 // store into costum class
                 serverRawData = JsonConvert.DeserializeObject<ServerCoinData>(rawData);
                 debugText.text = rawData;
+                serverResults = rawData;
+                
+                PopulateCoins(serverRawData);
+                debugText.text = $"Server Called finish calling {spawnAmountFinal} coins";
             }
         }
-
+    }
+    void PopulateCoins(ServerCoinData serverRawData)
+    {
         // Prepare the Data
         // Iterating ServerRawData
         // instantiate prefab
@@ -147,8 +172,8 @@ public class MyPlaceAtLocations : PlaceAtLocations
 
             locationData.Location.Latitude = double.Parse(prefabCoinDataComponent.Lat, System.Globalization.CultureInfo.InvariantCulture);
             locationData.Location.Longitude = double.Parse(prefabCoinDataComponent.Lng, System.Globalization.CultureInfo.InvariantCulture);
-            locationData.Location.Altitude = (rand.NextDouble() + 0.2);
-            locationData.Location.AltitudeMode = AltitudeMode.GroundRelative;
+            locationData.Location.Altitude = (rand.NextDouble() + 1);
+            locationData.Location.AltitudeMode = AltitudeMode.GroundRelative; 
             locationData.Location.Label = prefabCoinDataComponent.Coin;
 
             locationSettinsData.LocationInput.LocationInputType = LocationPropertyData.LocationPropertyType.LocationData;
@@ -157,18 +182,16 @@ public class MyPlaceAtLocations : PlaceAtLocations
             locationSettinsData.LocationInput.OverrideAltitudeData.OverrideAltitude = false;
 
 
-            AddLocation(locationSettinsData.LocationInput.Location, myPrefab);
+            AddLocation(locationSettinsData.LocationInput.Location, myPrefab, parentContainer);
 
             OnCoinSpawn();
 
+            debugText.text = $"Finished populating the {i + 1} coin";
+
         }
-
     }
 
-    public void UpdatingSpawnAmount()
-    {
-        spawnAmount =  int.Parse(spawnAmountInput.text);
-    }
+
 }
 # region CostumClassForCoinData
 public class ServerCoinData

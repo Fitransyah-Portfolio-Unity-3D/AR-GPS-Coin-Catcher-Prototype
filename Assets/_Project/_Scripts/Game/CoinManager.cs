@@ -50,12 +50,14 @@ public class CoinManager : MonoBehaviour
     private void OnEnable()
     {
         myPlaceAtLocations.OnCoinSpawn += AvailableCoinIncrementing;
+        myPlaceAtLocations.OnCoinSpawnStartPopulating += AvailableCoinReset;
         player.OnPlayerTakeCoin += AvailableCoinDecrementing;
         player.OnPlayerTakeCoin += UpdateCoinTaken;
     }
     private void OnDisable()
     {
         myPlaceAtLocations.OnCoinSpawn -= AvailableCoinIncrementing;
+        myPlaceAtLocations.OnCoinSpawnStartPopulating -= AvailableCoinReset;
         player.OnPlayerTakeCoin -= AvailableCoinDecrementing;
         player.OnPlayerTakeCoin -= UpdateCoinTaken;
 
@@ -79,10 +81,16 @@ public class CoinManager : MonoBehaviour
         coinsAvailable++;
         availableCoinsUI.text = "Available : " + coinsAvailable.ToString();
     }
-    public void AvailableCoinDecrementing()
+    void AvailableCoinDecrementing()
     {
         coinsAvailable--;
         availableCoinsUI.text = "Available : " + coinsAvailable.ToString();
     }
+    void AvailableCoinReset()
+    {
+        coinsAvailable = 0;
+        availableCoinsUI.text = "Available : " + coinsAvailable.ToString();
+    }
+
 
 }

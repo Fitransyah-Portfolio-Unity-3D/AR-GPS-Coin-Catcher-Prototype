@@ -83,3 +83,17 @@ Check latest builds on your Android Phone [here](https://drive.google.com/file/d
 - Grab Coins and Pick Coin Button for Debugging
 
 > Last Update 27 July 2022
+
+## Connection Lost Safety System Added
+- When device lost AR Tracking scene reload, restart AR Placement to zero, no coin available in 3D world.
+- When device Location enabled, game sent new request to server with random amount coins and populate new coins.
+- If scene reload without location enabled spawn will return with empty result.
+- If location enabled after disabled, spawn will still run even with reload or without reload scene
+
+## 3D Direction Feature Applied (Development)
+- If there any coins populated in 3D environment
+- Once trigger the Route Controller will find GameObject with prefab name starting from the nearest
+- Server populate coin by its distance, so that mean the first coin populated are the nearest from player
+- By storing 10 prefab by its index name, Route Controller stored list of that gameobject compoenent (PlaceAtLocation)
+- using its location property, Route Controller load route using ARLocation MapboxRoute methode and Mapbox API Token.
+

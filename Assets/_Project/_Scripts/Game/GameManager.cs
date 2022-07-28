@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioManager audioManager;
     [SerializeField] Image audioButton;
 
+    [Header("Updating")]
+    [SerializeField]
+    TMP_Text debugText; 
 
     private void Awake()
     {
@@ -39,7 +43,20 @@ public class GameManager : MonoBehaviour
     }
     public void ReloadScene()
     {
+        debugText.text = "Reloading Scene";
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);
+    }
+    public void ARTrackingLost()
+    {
+        debugText.text ="AR Location Manager : tracking is Lost!";
+    }
+    public void ARTrackingRestored()
+    {
+        debugText.text = "AR Location Manager : tracking is Restored!";
+    }
+    public void ARLocationEnabled()
+    {
+        debugText.text = "AR Location Provider : Location is Enabled!";
     }
 }
