@@ -29,7 +29,6 @@ public class MyPlaceAtLocations : PlaceAtLocations
     [Header("Gameobject Setup")]
     [SerializeField] GameObject myPrefab;
     [SerializeField] Camera arCamera;
-    [SerializeField] Transform parentContainer;
 
     [Space(2.0f)]
     [Header("Spawning Setup")]
@@ -43,8 +42,6 @@ public class MyPlaceAtLocations : PlaceAtLocations
     
     [Space(2.0f)]
     [Header("Debugging")]
-    [SerializeField]
-    InputField spawnAmountInput;
     [SerializeField]
     TMP_Text debugText ;
 
@@ -115,7 +112,6 @@ public class MyPlaceAtLocations : PlaceAtLocations
                 var rawData = www.downloadHandler.text;
                 // store into costum class
                 serverRawData = JsonConvert.DeserializeObject<ServerCoinData>(rawData);
-                debugText.text = rawData;
                 serverResults = rawData;
                 
                 PopulateCoins(serverRawData);
@@ -123,7 +119,7 @@ public class MyPlaceAtLocations : PlaceAtLocations
             }
         }
     }
-    void PopulateCoins(ServerCoinData serverRawData)
+    void PopulateCoins(ServerCoinData coinsData)
     {
         // Prepare the Data
         // Iterating ServerRawData
@@ -136,35 +132,36 @@ public class MyPlaceAtLocations : PlaceAtLocations
         // LocationInputType, LocationData, Location etc
         // Place it into GeoLocation
         // notifiy listener/subscriber for OnCoinSpawn
+        debugText.text = coinsData.ToString();
         System.Random rand = new System.Random();
-        for (int i = 0; i < serverRawData.data.Count; i++)
+        for (int i = 0; i < coinsData.data.Count; i++)
         {
             CoinData prefabCoinDataComponent = myPrefab.GetComponent<CoinData>();
 
-            prefabCoinDataComponent.Coin = serverRawData.data[i].Coin;
-            prefabCoinDataComponent.Cointype = serverRawData.data[i].Cointype;
-            prefabCoinDataComponent.Amount = serverRawData.data[i].Amount;
-            prefabCoinDataComponent.Countlimit = serverRawData.data[i].Countlimit;
-            prefabCoinDataComponent.Lng = serverRawData.data[i].Lng;
-            prefabCoinDataComponent.Lat = serverRawData.data[i].Lat;
-            prefabCoinDataComponent.Distance = serverRawData.data[i].Distance;
-            prefabCoinDataComponent.Advertisement = serverRawData.data[i].Advertisement;
-            prefabCoinDataComponent.Brand = serverRawData.data[i].Brand;
-            prefabCoinDataComponent.Title = serverRawData.data[i].Title;
-            prefabCoinDataComponent.Contents = serverRawData.data[i].Contents;
-            prefabCoinDataComponent.Currency = serverRawData.data[i].Currency;
-            prefabCoinDataComponent.AdColor1 = serverRawData.data[i].AdColor1;
-            prefabCoinDataComponent.AdColor2 = serverRawData.data[i].AdColor2;
-            prefabCoinDataComponent.Coins = serverRawData.data[i].Coins;
-            prefabCoinDataComponent.AdThumbnail = serverRawData.data[i].AdThumbnail;
-            prefabCoinDataComponent.AdThumbnail2 = serverRawData.data[i].AdThumbnail2;
-            prefabCoinDataComponent.Tracking = serverRawData.data[i].Tracking;
-            prefabCoinDataComponent.Isbigcoin = serverRawData.data[i].Isbigcoin;
-            prefabCoinDataComponent.Symbol = serverRawData.data[i].Symbol;
-            prefabCoinDataComponent.BrandLogo = serverRawData.data[i].BrandLogo;
-            prefabCoinDataComponent.Symbolimg = serverRawData.data[i].Symbolimg;
-            prefabCoinDataComponent.Exad = serverRawData.data[i].Exad;
-            prefabCoinDataComponent.Exco = serverRawData.data[i].Exco;
+            prefabCoinDataComponent.Coin = coinsData.data[i].Coin;
+            prefabCoinDataComponent.Cointype = coinsData.data[i].Cointype;
+            prefabCoinDataComponent.Amount = coinsData.data[i].Amount;
+            prefabCoinDataComponent.Countlimit = coinsData.data[i].Countlimit;
+            prefabCoinDataComponent.Lng = coinsData.data[i].Lng;
+            prefabCoinDataComponent.Lat = coinsData.data[i].Lat;
+            prefabCoinDataComponent.Distance = coinsData.data[i].Distance;
+            prefabCoinDataComponent.Advertisement = coinsData.data[i].Advertisement;
+            prefabCoinDataComponent.Brand = coinsData.data[i].Brand;
+            prefabCoinDataComponent.Title = coinsData.data[i].Title;
+            prefabCoinDataComponent.Contents = coinsData.data[i].Contents;
+            prefabCoinDataComponent.Currency = coinsData.data[i].Currency;
+            prefabCoinDataComponent.AdColor1 = coinsData.data[i].AdColor1;
+            prefabCoinDataComponent.AdColor2 = coinsData.data[i].AdColor2;
+            prefabCoinDataComponent.Coins = coinsData.data[i].Coins;
+            prefabCoinDataComponent.AdThumbnail = coinsData.data[i].AdThumbnail;
+            prefabCoinDataComponent.AdThumbnail2 = coinsData.data[i].AdThumbnail2;
+            prefabCoinDataComponent.Tracking = coinsData.data[i].Tracking;
+            prefabCoinDataComponent.Isbigcoin = coinsData.data[i].Isbigcoin;
+            prefabCoinDataComponent.Symbol = coinsData.data[i].Symbol;
+            prefabCoinDataComponent.BrandLogo = coinsData.data[i].BrandLogo;
+            prefabCoinDataComponent.Symbolimg = coinsData.data[i].Symbolimg;
+            prefabCoinDataComponent.Exad = coinsData.data[i].Exad;
+            prefabCoinDataComponent.Exco = coinsData.data[i].Exco;
 
             LocationData locationData = ScriptableObject.CreateInstance<LocationData>();
             ARLocation.PlaceAtLocation.LocationSettingsData locationSettinsData = new ARLocation.PlaceAtLocation.LocationSettingsData();
@@ -172,7 +169,7 @@ public class MyPlaceAtLocations : PlaceAtLocations
 
             locationData.Location.Latitude = double.Parse(prefabCoinDataComponent.Lat, System.Globalization.CultureInfo.InvariantCulture);
             locationData.Location.Longitude = double.Parse(prefabCoinDataComponent.Lng, System.Globalization.CultureInfo.InvariantCulture);
-            locationData.Location.Altitude = (rand.NextDouble() + 1);
+            locationData.Location.Altitude = (rand.NextDouble() + 0.2);
             locationData.Location.AltitudeMode = AltitudeMode.GroundRelative; 
             locationData.Location.Label = prefabCoinDataComponent.Coin;
 
@@ -182,7 +179,7 @@ public class MyPlaceAtLocations : PlaceAtLocations
             locationSettinsData.LocationInput.OverrideAltitudeData.OverrideAltitude = false;
 
 
-            AddLocation(locationSettinsData.LocationInput.Location, myPrefab, parentContainer);
+            AddLocation(locationSettinsData.LocationInput.Location, myPrefab);
 
             OnCoinSpawn();
 

@@ -3597,7 +3597,7 @@ MonoBehaviour:
     MinDistanceBetweenUpdates: 0
     AccuracyRadius: 100
     MaxNumberOfUpdates: 0
-  MockLocationData: {fileID: 0}
+  MockLocationData: {fileID: 11400000, guid: 41f99c9cf0346034bb620bc37e9d302d, type: 2}
   MaxWaitTime: 120
   StartUpDelay: 5
   DebugMode: 0
@@ -5896,7 +5896,7 @@ PrefabInstance:
       objectReference: {fileID: 987767072}
     - target: {fileID: 1737496025619502271, guid: 292d1b68bd38e814a8239e0c3fcf3f2b, type: 3}
       propertyPath: normalRaycastDistance
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 292d1b68bd38e814a8239e0c3fcf3f2b, type: 3}
@@ -6489,6 +6489,10 @@ PrefabInstance:
       propertyPath: arCamera
       value: 
       objectReference: {fileID: 1558199263}
+    - target: {fileID: 7630507356058921244, guid: 097493dc48fe599449c47db4b373a452, type: 3}
+      propertyPath: myPrefab
+      value: 
+      objectReference: {fileID: 4216428022584058710, guid: 47a9160b12c15124fbf5d1b89d179b30, type: 3}
     - target: {fileID: 7630507356058921244, guid: 097493dc48fe599449c47db4b373a452, type: 3}
       propertyPath: DebugMode
       value: 1
