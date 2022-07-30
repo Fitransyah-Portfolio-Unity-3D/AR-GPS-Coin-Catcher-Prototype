@@ -79,17 +79,17 @@ public class CoinManager : MonoBehaviour
     void AvailableCoinIncrementing()
     {
         coinsAvailable++;
-        availableCoinsUI.text = "Available : " + coinsAvailable.ToString();
+        availableCoinsUI.text = coinsAvailable.ToString() + " coins available in 1000m";
     }
     void AvailableCoinDecrementing()
     {
         coinsAvailable--;
-        availableCoinsUI.text = "Available : " + coinsAvailable.ToString();
+        availableCoinsUI.text = coinsAvailable.ToString() + " coins available in 1000m";
     }
     void AvailableCoinReset()
     {
         coinsAvailable = 0;
-        availableCoinsUI.text = "Available : " + coinsAvailable.ToString();
+        availableCoinsUI.text = coinsAvailable.ToString() + " coins available in 1000m";
     }
 
 

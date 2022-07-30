@@ -173,8 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loginCreateMenuClip: {fileID: 8300000, guid: 9b5d02917fc249148a07728d3df47e6d, type: 3}
-  backsoundClip: {fileID: 8300000, guid: e060a4c362871bc49bd5d30efc050bda, type: 3}
-  coinTakenClip: {fileID: 8300000, guid: 3f2682bb838857949bca4fa556af8742, type: 3}
+  backsoundClip: {fileID: 8300000, guid: 45f2b5a156c6e0043bcc496d2209b957, type: 3}
+  coinTakenClip: {fileID: 8300000, guid: 5d26b3cd1c5373c4faa4ef41da1ffb25, type: 3}
   onePlay: {fileID: 8877647367056452921}
   backsound: {fileID: 8877647368687379902}
 --- !u!1 &8877647368687379900

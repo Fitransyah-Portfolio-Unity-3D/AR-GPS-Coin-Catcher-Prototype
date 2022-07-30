@@ -27,10 +27,12 @@ public class Player : MonoBehaviour
     private Image crossHair;
     [SerializeField]
     private Animator uiAnimator;
+    [SerializeField]
+    Button arrowButton;
+    [SerializeField]
+    Button hammerButton;
 
-
-    [Space(2.0f)]
-    [Header("Raycast variable")]
+    [Header("Variables")]
     float raycastDistance;
     [SerializeField]
     float normalRaycastDistance;
@@ -105,7 +107,7 @@ public class Player : MonoBehaviour
         // yield return 10s
         // visibility to coin = normal
         // raycastdistance = normalRaycastDistance
-        // arrow power on false
+        // arrowAnimator power on false
 
     }
     public void HammerButtonOnClicked()
