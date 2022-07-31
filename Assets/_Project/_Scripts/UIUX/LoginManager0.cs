@@ -30,15 +30,26 @@ public class LoginManager0 : MonoBehaviour
     {
         loginButton.interactable = false;
         registerButton.interactable = false;
-    }
-
-    void Start()
-    {
         mainScreen.gameObject.SetActive(true);
-        if(audioManager == null)
+
+        if (audioManager == null)
         {
             audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+            
         }
+    }
+
+    private void Start()
+    {
+        if (audioManager != null)
+        {
+            AudioSource backsoundPlaying = GameObject.FindGameObjectWithTag("Backsound").GetComponent<AudioSource>();
+            if (backsoundPlaying.isPlaying)
+            {
+                backsoundPlaying.Stop();
+            }
+        }
+       
     }
 
     void Update()
@@ -58,10 +69,11 @@ public class LoginManager0 : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         mainScreen.gameObject.SetActive(false);
+
         yield return new WaitForSeconds(0.5f);
-        //loginManagerAudioSource.PlayOneShot(loginCreateMenuClip);
         audioManager.onePlay.PlayOneShot(audioManager.loginCreateMenuClip);
         loginCreateMenu.gameObject.SetActive (true);
+
         yield return new WaitForSeconds(5f);
         audioManager.backsound.Play();
         loginButton.interactable = true;

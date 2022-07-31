@@ -9,6 +9,7 @@ TagManager:
   - CoinUIParent
   - PanelBorder
   - DataManager
+  - Backsound
   layers:
   - Default
   - TransparentFX
