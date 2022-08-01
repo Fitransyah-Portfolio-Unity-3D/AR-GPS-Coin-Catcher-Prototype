@@ -64,9 +64,9 @@ public class LoginManager2 : MonoBehaviour
             default: return;
         }
         //promptText.text = result;
-        //if (promptPanelCanvas.anchoredPosition.y == -700f)
+        //if (promptPanel.anchoredPosition.y == -700f)
         //{
-        //    promptPanelCanvas.DOAnchorPosY(0f, 0.75f, true);
+        //    promptPanel.DOAnchorPosY(0f, 0.75f, true);
         //}
     }
 

@@ -7,10 +7,17 @@ public class LoginManager1 : MonoBehaviour
 {
     [Header("Controlling")]
     [SerializeField] AudioManager audioManager;
-    [SerializeField] RectTransform promptPanelCanvas;
+    [SerializeField] RectTransform promptPanel;
+    [SerializeField] RectTransform verificationCodePanel;
 
     [Header("Updating")]
     [SerializeField] TMP_Text promptText;
+    [SerializeField] TMP_Text verificationCodeText;
+
+    [Header("Subscribing")]
+    [SerializeField] DataManager1 dataManager1;
+
+    public bool promptIsOut = false;
 
     private void Awake()
     {
@@ -19,69 +26,64 @@ public class LoginManager1 : MonoBehaviour
             audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         }
     }
-
+    private void OnEnable()
+    {
+        dataManager1.OnEmailVerificationSent += ActionAfterEmailVerificationSent;
+        dataManager1.OnRequiredFieldsAreEmpty += ActionIfRequiredFieldsAreEmpty;
+        dataManager1.OnEmailAlreadyExist += ActionEmailAlreadyExist;
+        dataManager1.OnVerificationCodeFailed += ActionVerificationFailed;
+        dataManager1.OnRepeatRegistrationClicked += ActionRepeatRegistrationClicked;
+    }
+    private void OnDisable()
+    {
+        dataManager1.OnEmailVerificationSent -= ActionAfterEmailVerificationSent;
+        dataManager1.OnRequiredFieldsAreEmpty -= ActionIfRequiredFieldsAreEmpty;
+        dataManager1.OnEmailAlreadyExist -= ActionEmailAlreadyExist;
+        dataManager1.OnVerificationCodeFailed -= ActionVerificationFailed;
+    }
     private void Update()
     {
         // panel is up and screen touch 
         // panel animation play down
         if (Input.touchCount > 0)
         {
-            if (promptPanelCanvas.anchoredPosition.y > -700f)
+            if (promptPanel.anchoredPosition.y > -700f && promptIsOut)
             {
-                promptPanelCanvas.DOAnchorPosY(-700f, 0.75f, true);
-                Scene thisScene =  SceneManager.GetActiveScene();
-                SceneManager.LoadScene(thisScene.buildIndex);
+                promptPanel.DOAnchorPosY(-700f, 0.75f, true);
+                promptIsOut = false;
             }
         }
-        
     }
     public void GoBackButtonClicked()
     {
         SceneManager.LoadScene(2);
     }
 
-
-    //string textFor406 = "Email yang anda gunakan sudah terdaftar.\n Silahkan masuk melalui 'Login page'";
-    //string textFor201 = "Anda berhasil terdaftar!\n Silahkan masuk dengan akun baru Anda";
-    //string textFor400 = "Data yang Anda masukkan salah, silahkan pastikan mengisi email, nomor telfon dan password";
-    public void ActionAfterRequest(string statusCode)
+    void ActionIfRequiredFieldsAreEmpty()
     {
-        //switch (statusCode)
-        //{
-        //    case 406:
-                
-        //        // prompt panel animation up
-        //        // update text from panel up
-        //        promptText.text = textFor406;
-        //        if (promptPanelCanvas.anchoredPosition.y == -700f)
-        //        {
-        //            promptPanelCanvas.DOAnchorPosY(0f, 0.75f, true);
-        //        }
-        //        break;
-
-        //        case 201:
-        //        // prompt panel animation up
-        //        // update text from panel up
-        //        promptText.text = textFor201;
-        //        if (promptPanelCanvas.anchoredPosition.y == -700f)
-        //        {
-        //            promptPanelCanvas.DOAnchorPosY(0f, 0.75f, true);
-        //        }
-        //        break;
-        //        case 400:
-        //        // prompt panel animation up
-        //        // update text from panel up
-        //        promptText.text = textFor400;
-        //        if (promptPanelCanvas.anchoredPosition.y == -700f)
-        //        {
-        //            promptPanelCanvas.DOAnchorPosY(0f, 0.75f, true);
-        //        }
-        //        break;
-
-        //    default: return;
-        //}
-
-
+        promptText.text = "Kolom email, password dan nomor telfon tidak boleh kosong, silahkan ulangi pendaftaran";
+        promptPanel.DOAnchorPosY(0f, 0.75f, true);
+        promptIsOut = true;
     }
+    void ActionEmailAlreadyExist()
+    {
+        promptText.text = "Email yang Anda gunakan sudah terdaftar di sistem kami, silahkan kembali ke menu Login";
+        promptPanel.DOAnchorPosY(0f, 0.75f, true);
+        promptIsOut = true;
+    }
+    void ActionAfterEmailVerificationSent()
+    {
+        verificationCodeText.text = "Silahkan masukkan 6 nomor verifikasi yang terkirim ke email Anda";
+        verificationCodePanel.DOAnchorPosY(0f, 0.75f, true);
+    }
+    void ActionVerificationFailed()
+    {
+        verificationCodeText.text = "Kode yang Anda masukkan salah silahkan cek email Anda \natau klik ulangi pendaftaran untuk memulai pendaftaran baru";
+    }
+    void ActionRepeatRegistrationClicked()
+    {
+        verificationCodePanel.DOAnchorPosY(-700f, 0.75f, true);
+    }
+
 }
 

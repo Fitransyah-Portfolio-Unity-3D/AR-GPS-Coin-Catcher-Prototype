@@ -30,9 +30,9 @@ MonoBehaviour:
   defaultEaseType: 6
   defaultEaseOvershootOrAmplitude: 1.70158
   defaultEasePeriod: 0
-  defaultAutoKill: 1
+  defaultAutoKill: 0
   defaultLoopType: 0
-  debugMode: 0
+  debugMode: 1
   debugStoreTargetId: 1
   showPreviewPanel: 1
   storeSettingsLocation: 0
