@@ -12,9 +12,10 @@ using ARLocation;
 
 public class PathDebug : MonoBehaviour
 {
+
     public void PathOnOff()
     {
-        var arObjects = FindObjectsOfType<PlaceAtLocation>();
+        PlaceAtLocation[] arObjects = FindObjectsOfType<PlaceAtLocation>();
         foreach (PlaceAtLocation itemobject in arObjects)
         {
             LineRenderer line = itemobject.GetComponent<LineRenderer>();

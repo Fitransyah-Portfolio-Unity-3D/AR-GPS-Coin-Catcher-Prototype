@@ -31,7 +31,7 @@ public class MyCountryCodeManager : MonoBehaviour
             string[] country_code = MyCountryCode.options[MyCountryCode.value].text.Split(new[] { "   (+" }, StringSplitOptions.None);
             string code = country_code[1].Remove(country_code[1].Length - 1);
             countryCode = "" + code;
-            MyCountryCode.captionText.text = "+" + countryCode;
+            MyCountryCode.captionText.text = countryCode;
         }
     }
 

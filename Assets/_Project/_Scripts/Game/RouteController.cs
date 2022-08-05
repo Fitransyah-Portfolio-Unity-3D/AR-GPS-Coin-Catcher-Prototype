@@ -10,22 +10,29 @@ public class RouteController : MonoBehaviour
     [SerializeField]
     MapboxRoute mapboxRoute;
     [SerializeField]
-    string MapboxToken = "pk.eyJ1IjoieHJ1bmxsYyIsImEiOiJjbDVtZnZvYXcwMTYzM2hwOHhtYjV1czViIn0.UMgF3FlHnPNjTIQ_GcWWzg";
+    GameObject ARLocationRoot;
     [SerializeField]
     TMP_Text debugText;
 
     [SerializeField]
     List<PlaceAtLocation> nearestCoins = new List<PlaceAtLocation>();
+    [SerializeField]
+    PlaceAtLocation currentTarget;
 
     public AbstractRouteRenderer RoutePathRenderer;
     public AbstractRouteRenderer NextTargetPathRenderer;
    private AbstractRouteRenderer currentPathRenderer => s.LineType == LineType.Route ? RoutePathRenderer : NextTargetPathRenderer;
 
     int listIndex;
-
+    [SerializeField]
+    string MapboxToken = "pk.eyJ1IjoieHJ1bmxsYyIsImEiOiJjbDVtZnZvYXcwMTYzM2hwOHhtYjV1czViIn0.UMgF3FlHnPNjTIQ_GcWWzg";
     private void Awake()
     {
         mapboxRoute.Settings.Language = MapboxApiLanguage.Indonesian;
+    }
+    private void Start()
+    {
+        
     }
     public LineType PathRendererType
     {
@@ -69,70 +76,49 @@ public class RouteController : MonoBehaviour
 
     public void ActivateRoute()
     {
-        // grab 10 nearest coin
-        for (int i = 0; i < 11; i++)
+        if (ARLocationRoot.transform.childCount > 0)
         {
-            var foundCoin = GameObject.Find($"MyPlaceAtLocations - {i}").GetComponent<PlaceAtLocation>();
-            nearestCoins.Add(foundCoin);
-        }
-        if (nearestCoins.Count > 0)
-        {
-            StartRoute(nearestCoins[0].Location);
-            listIndex = 0;
-            debugText.text = DisplayCoinData(nearestCoins[0].gameObject);
-            
+            currentTarget = ARLocationRoot.transform.GetChild(0).GetComponent<PlaceAtLocation>();
+            StartRoute(currentTarget.Location);
+            debugText.text = DisplayCoinData(currentTarget.gameObject);
         }
         else
         {
-            Debug.LogError("No coin in the list!");
-            return;
+            debugText.text = "Currently no spawned object, please wait or make sure your location is enabled!";
         }
+        
+
     }
     public void PickNextCoin()
     {
-        if (nearestCoins.Count > 0)
+        int currentIndex = currentTarget.transform.GetSiblingIndex();
+        if (currentIndex == ARLocationRoot.transform.childCount - 1)
         {
-            if (listIndex < nearestCoins.Count)
-            {
-                listIndex++;
-                StartRoute(nearestCoins[listIndex].Location);
-                debugText.text = DisplayCoinData(nearestCoins[listIndex].gameObject);
-            }
-            else if (listIndex == nearestCoins.Count)
-            {
-                listIndex = 0;
-                debugText.text = DisplayCoinData(nearestCoins[listIndex].gameObject);
-                debugText.text = "Its end of list, back to the first in the list";
-                return;
-            }
+            debugText.text = "No more object available please please press previous target";
         }
-        else
+        else if (currentIndex < ARLocationRoot.transform.childCount)
         {
-            Debug.Log("No coin to select");
-        }   
+            currentTarget = ARLocationRoot.transform.GetChild(currentIndex + 1).GetComponent<PlaceAtLocation>();
+            StartRoute(currentTarget.Location);
+            debugText.text = DisplayCoinData(currentTarget.gameObject);
+        }
+
+        
     }
     public void PickPreviousCoin()
     {
-        if (nearestCoins.Count > 0 )
+        int currentIndex = currentTarget.transform.GetSiblingIndex();
+        if (currentIndex == 0)
         {
-            if (listIndex > -1)
-            {
-                listIndex--;
-                StartRoute(nearestCoins[listIndex].Location);
-                debugText.text = DisplayCoinData(nearestCoins[listIndex].gameObject);
-            }
-            else if (listIndex == -1)
-            {
-                listIndex = nearestCoins.Count - 1;
-                debugText.text = DisplayCoinData(nearestCoins[listIndex].gameObject);
-                debugText.text = "Its the end of list, back to the last in the list";
-                return;
-            }
+            debugText.text = "No more object available please please press next target";
         }
-        else
+        else if (currentIndex > -1)
         {
-            Debug.Log("No coin to select");
+            currentTarget = ARLocationRoot.transform.GetChild(currentIndex - 1).GetComponent<PlaceAtLocation>();
+            StartRoute(currentTarget.Location);
+            debugText.text = DisplayCoinData(currentTarget.gameObject);
         }
+
     }
     string DisplayCoinData(GameObject coin)
     {
@@ -161,7 +147,7 @@ public class RouteController : MonoBehaviour
         s.View = View.Normal;
         currentPathRenderer.enabled = false;
         mapboxRoute.RoutePathRenderer = currentPathRenderer;
-        nearestCoins.Clear();
+        currentTarget = null;
         debugText.text = "No coin selected!";
     }
     public void StartRoute(Location dest)
@@ -195,5 +181,5 @@ public class RouteController : MonoBehaviour
                             
                         }));
         }
-    }
+    }// TODO : Build Minimap feature
 }

@@ -17,13 +17,13 @@ public class Clicked : MonoBehaviour
         thisButton = GetComponent<Button>();
         thisButtonAudioSource = GetComponent<AudioSource>();
     }
-    private void Start()
+    private void OnEnable()
     { 
-        thisButton.onClick.AddListener(PlayClickedSound);
+        thisButton.onClick.AddListener( delegate { PlayClickedSound(); });
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
-        thisButton.onClick.RemoveListener(PlayClickedSound);
+        thisButton.onClick.RemoveListener(delegate { PlayClickedSound(); });
     }
     void PlayClickedSound()
     {

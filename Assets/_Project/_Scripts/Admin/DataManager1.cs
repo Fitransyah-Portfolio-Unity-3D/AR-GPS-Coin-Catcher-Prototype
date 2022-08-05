@@ -12,8 +12,7 @@ using Newtonsoft.Json;
 
 // This class handle : 
 // Retrieving data from Unity UI Input field
-// Make a POST web request to server
-// follow with necessary action based on status code or data response
+// Communicating with server for registration process
 
 
 public class DataManager1 : MonoBehaviour
@@ -30,13 +29,13 @@ public class DataManager1 : MonoBehaviour
     public string sexValue = null;
     [SerializeField] TMP_InputField verificationCodeInputField;
 
-    JoinForm newMember;
+    RegistrationForm newMember;
 
     public event Action OnRequiredFieldsAreEmpty;
     public event Action OnEmailAlreadyExist;
     public event Action OnEmailVerificationSent;
     public event Action OnVerificationCodeFailed;
-    public event Action OnRepeatRegistrationClicked;
+    public event Action OnRegistrationSuccesfull;
 
     [Header("Updating")]
     [SerializeField] LoginManager1 loginManager;
@@ -45,6 +44,14 @@ public class DataManager1 : MonoBehaviour
     [SerializeField] Button registerButton;
     [SerializeField] Button submitVerificationCodeButton;
     [SerializeField] Button repeatRegistrationButton;
+    private void OnEnable()
+    {
+        loginManager.OnSubmitCodeButtonClicked += OnClickSubmitVerificationCodeButton;
+    }
+    private void OnDisable()
+    {
+        loginManager.OnSubmitCodeButtonClicked -= OnClickSubmitVerificationCodeButton;
+    }
 
     public void OnClickRegisterButton()
     {
@@ -127,7 +134,7 @@ public class DataManager1 : MonoBehaviour
     IEnumerator EmailVerification()
     {
         // store registration data in instance
-        newMember = new JoinForm();
+        newMember = new RegistrationForm();
         newMember.Email = email.text.ToString();
         newMember.Pin = passwordInputField.text.ToString();
         newMember.Mobilecode = phoneCode.text.ToString();
@@ -135,7 +142,7 @@ public class DataManager1 : MonoBehaviour
         newMember.Countrycode = "ID";
         newMember.Region = region.text.ToString();
         newMember.Age = ageValue;
-        newMember.Sex = sexValue;
+        newMember.Gender = sexValue;
         
 
         // building query
@@ -161,6 +168,7 @@ public class DataManager1 : MonoBehaviour
             }
             else
             {
+                Debug.Log(www.downloadHandler.text);
                 // if request succesfull bring up email verfication code panel
                 OnEmailVerificationSent();
                 
@@ -173,7 +181,7 @@ public class DataManager1 : MonoBehaviour
         Debug.Log("EmailVerification Finish");
     }
 
-    public void OnClickSubmitVerificationCodeButton()
+    void OnClickSubmitVerificationCodeButton()
     {
         StartCoroutine(EmailPasscodeVerification());
     }
@@ -181,7 +189,7 @@ public class DataManager1 : MonoBehaviour
     IEnumerator EmailPasscodeVerification()
     {
         // building query
-        string endpoint = "https://app.xrun.run/gateway.php?";
+        string endpoint = serverEndpoint;
         var uriBuilder = new UriBuilder(endpoint);
         var query = HttpUtility.ParseQueryString(uriBuilder.Query);
         query["act"] = "login-03-email";
@@ -218,8 +226,7 @@ public class DataManager1 : MonoBehaviour
                 }
                 else if (responseData.Data == "ok")
                 {
-                    // continue to next sequence
-                    // register the user and login game
+                    StartCoroutine(RegisterNewMember());
                 }
             }
 
@@ -230,16 +237,56 @@ public class DataManager1 : MonoBehaviour
         }
 
     }
-    public void OnClickRepeatRegisterButton()
+    IEnumerator RegisterNewMember()
     {
-        OnRepeatRegistrationClicked();
+        Debug.Log(newMember.Mobilecode);
+        Debug.Log(newMember.Region);
+        
+        // building query
+        string endpoint = serverEndpoint;
+        var uriBuilder = new UriBuilder(endpoint);
+        var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+        query["act"] = "login-05-joinAndAccount";
+        query["email"] = newMember.Email;
+        query["pin"] = newMember.Pin;
+        query["mobilecode"] = newMember.Mobilecode;
+        query["mobile"] = newMember.Mobile;
+        query["countrycode"] = "ID";
+        uriBuilder.Query = query.ToString();
+        endpoint = uriBuilder.ToString();
+
+        // requesting email verification
+        using (UnityWebRequest www = UnityWebRequest.Get(endpoint))
+        {
+            // both button non interactable
+            submitVerificationCodeButton.interactable = false;
+            repeatRegistrationButton.interactable = false;
+
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Registration result : \n" + www.downloadHandler.text);
+                //PlayerPrefs.SetString("email", newMember.Email);
+                OnRegistrationSuccesfull();             
+            }
+
+            // both button interactable
+            submitVerificationCodeButton.interactable = true;
+            repeatRegistrationButton.interactable = true;
+
+        }
     }
     public class ResponseData
     {
         public string Data { get; set; }   
         public string Value { get; set; }
     }
-    public class JoinForm
+    public class RegistrationForm
     {
         public string Email { get; set; }
         public string  Pin { get; set; }
@@ -251,7 +298,6 @@ public class DataManager1 : MonoBehaviour
         public string Region{ get; set; }
         public string Gender { get; set; }
         public string Age { get; set; }
-        public string Sex { get; set; }
         public string  Country { get; set; }
     }
 }   

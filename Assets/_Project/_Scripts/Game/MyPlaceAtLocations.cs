@@ -47,15 +47,16 @@ public class MyPlaceAtLocations : PlaceAtLocations
 
     public event Action OnCoinSpawn;
     public event Action OnCoinSpawnStartPopulating;
+    public event Action OnCoinSpawnFinishPopulating;
 
     public void StartPopulateCoins()
     {
-        //OnCoinSpawnStartPopulating();
+        OnCoinSpawnStartPopulating();
         if (spawnAmount == 0 && serverRawData == null)
         {
             Debug.LogWarning("No data in server, so call server again");
             debugText.text = "No data in server, so call server again";
-            int randomSpawnAmount = UnityEngine.Random.Range(50, 151);
+            int randomSpawnAmount = UnityEngine.Random.Range(200, 501);
             spawnAmount = randomSpawnAmount;
             StartCoroutine(CallServer(spawnAmount));
         }
@@ -186,9 +187,8 @@ public class MyPlaceAtLocations : PlaceAtLocations
             debugText.text = $"Finished populating the {i + 1} coin";
 
         }
+        OnCoinSpawnFinishPopulating();
     }
-
-
 }
 # region CostumClassForCoinData
 public class ServerCoinData

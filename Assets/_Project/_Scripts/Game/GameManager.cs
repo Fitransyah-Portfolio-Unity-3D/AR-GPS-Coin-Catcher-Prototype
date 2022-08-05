@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     }
     public void ExitGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(3);
     }
     public void ReloadScene()
     {
