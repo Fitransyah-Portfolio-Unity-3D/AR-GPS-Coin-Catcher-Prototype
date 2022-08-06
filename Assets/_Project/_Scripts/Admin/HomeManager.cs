@@ -14,14 +14,14 @@ public class HomeManager : MonoBehaviour
     }
     public void MyAdsButtonClicked()
     {
-        // go to my ads page
+        SceneManager.LoadScene(5);
     }
     public void ShopButtonClicked()
     {
-        // go to shop page
+        SceneManager.LoadScene(6);
     }
     public void SettingButtonClicked()
     {
-        // go to stting page
+        SceneManager.LoadScene(7);
     }
 }

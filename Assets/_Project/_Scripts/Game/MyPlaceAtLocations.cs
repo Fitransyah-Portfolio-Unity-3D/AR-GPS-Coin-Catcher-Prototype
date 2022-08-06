@@ -78,11 +78,11 @@ public class MyPlaceAtLocations : PlaceAtLocations
         longitudeApi = playerLocation.Longitude;
 
         //Debugging
-        if (latitudeApi == 0 || longitudeApi == 0)
-        {
-            latitudeApi = -6.2564442948084915;
-            longitudeApi = 106.85404328836381;
-        }
+        //if (latitudeApi == 0 || longitudeApi == 0)
+        //{
+        //    latitudeApi = -6.2564442948084915;
+        //    longitudeApi = 106.85404328836381;
+        //}
 
         // building query
         string endpoint = "https://app.xrun.run/gateway.php?";

@@ -108,6 +108,7 @@ public class Player : MonoBehaviour
         // visibility to coin = normal
         // raycastdistance = normalRaycastDistance
         // arrowAnimator power on false
+        StartCoroutine(ArrowCheatOn());
 
     }
     public void HammerButtonOnClicked()
@@ -165,7 +166,19 @@ public class Player : MonoBehaviour
     }
     IEnumerator ArrowCheatOn()
     {
-        yield return null;
+        Image arrowButtonImage = GameObject.FindGameObjectWithTag("Arrow").GetComponent<Image>();
+        Color previousColor = arrowButtonImage.color;
+        arrowButtonImage.color = Color.white;
+        raycastDistance = arrowRaycastDistance;
+        arCamera.orthographic = true;
+        arCamera.orthographicSize = 2f;
+        arCamera.farClipPlane = 120f;
+        yield return new WaitForSeconds(20f);
+        arrowButtonImage.color = previousColor;
+        arCamera.orthographicSize = 5f;
+        arCamera.farClipPlane = 20f;
+        arCamera.orthographic = false;
+        raycastDistance = normalRaycastDistance;
     }
     IEnumerator HammerCheatOn()
     {

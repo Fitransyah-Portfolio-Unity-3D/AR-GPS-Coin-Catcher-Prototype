@@ -10,6 +10,7 @@ TagManager:
   - PanelBorder
   - DataManager
   - Backsound
+  - Arrow
   layers:
   - Default
   - TransparentFX

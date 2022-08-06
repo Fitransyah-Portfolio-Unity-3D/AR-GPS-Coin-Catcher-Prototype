@@ -23,7 +23,7 @@ public class DataManager1 : MonoBehaviour
     [SerializeField] TMP_Text phoneCode;
     [SerializeField] TMP_InputField phoneNumber;
     [SerializeField] TMP_InputField passwordInputField;
-    [SerializeField] TMP_InputField region;
+    [SerializeField] TMP_Text region;
     [SerializeField] TMP_InputField referral;
     public string ageValue = null;
     public string sexValue = null;
@@ -140,10 +140,19 @@ public class DataManager1 : MonoBehaviour
         newMember.Mobilecode = phoneCode.text.ToString();
         newMember.Mobile = phoneNumber.text.ToString();
         newMember.Countrycode = "ID";
-        newMember.Region = region.text.ToString();
-        newMember.Age = ageValue;
-        newMember.Gender = sexValue;
-        
+
+        string fullRegionString = region.text.ToString();
+        int startIndex = fullRegionString.IndexOf("(");
+        int endIndex = fullRegionString.IndexOf(")");
+        string regionCode = fullRegionString.Substring(startIndex +1 , endIndex - startIndex -1);
+        newMember.Region = regionCode;
+        newMember.Age = ageValue; //Int16.Parse(ageValue);
+        newMember.Gender = sexValue; //Int16.Parse(sexValue);
+
+        Debug.Log(newMember.Age + newMember.Gender);
+
+        var jsonNewMember = JsonConvert.SerializeObject(newMember);
+        Debug.Log(jsonNewMember.ToString());
 
         // building query
         string endpoint = serverEndpoint;
