@@ -25,19 +25,20 @@ Final MVP :
 - Wallet system
 - Languange Localization
 
-Check WIP last update on 16 July 2022, [here](https://drive.google.com/file/d/1JYOjn2o64FYqKFmASXCIW0u1OfPPzRAS/view?usp=sharing).
+Check WIP last update on 16 July 2022, [here](https://drive.google.com/file/d/1JYOjn2o64FYqKFmASXCIW0u1OfPPzRAS/view?usp=sharing).  
 
-Check latest builds on your Android Phone [here](https://drive.google.com/file/d/1JlNanbv5qfPfd79a8Hosuwfva8V5eEne/view?usp=sharing), make sure your Android OS at leaset Android 7 **(Nougat)**.
+Check latest builds on your Android Phone [here](https://drive.google.com/file/d/1JlNanbv5qfPfd79a8Hosuwfva8V5eEne/view?usp=sharing), make sure your Android OS at leaset Android 7 **(Nougat)**.  
+
+Check full UI build and registration system demo [here](https://drive.google.com/file/d/1ZXkAO9EmS6AheJSAVD2j4kScYXn6vLd7/view?usp=sharing).  
 
 ## How to Clone the project properly
 
 **1.** Make sure you have Unity 2020.3.36f1 (LTS) or above installed on your Unity Hub. All prior Unity version and 2021 might have some errors when opening the projects.  
-**2.** Using manifest.json Unity will auto install all required package except costum package. Project can still work without [AR Foundation Remote 2.0](https://assetstore.unity.com/packages/tools/utilities/ar-foundation-remote-2-0-201106) asset. But make sure you have or bought [AR + GPS Location](https://assetstore.unity.com/packages/tools/integration/ar-gps-location-134882) asset, since this asset are the backbone of the project.  
-**3** DOTween have some minor application for UI, [check Panel.cs](https://github.com/Fitransyah-Portfolio-Unity-3D/AR-GPS-Coin-Catcher-Prototype/blob/master/Assets/_Project/Scripts/Panel.cs).  
-**4** IF error happen after importing the project, check ARFoundation plugin, Material UI Elements plugin, CountryCodePicker Plugin. There is slight customization on  their code. Better to copy directly from master project for those plugins folders.  
-**5** Audio files is not stored in this remote repo, so need to  add the files manually into folder.
-**6** There is free plugin that not coming from Unity Asset Store which UniClipboard [Find it here](https://github.com/sanukin39/UniClipboard). 
-**7** Make a static class to store mapbox token and call it from RouteController.cs  
+**2.** Using manifest.json Unity will auto install all required package except costum package. Project can still work without [AR Foundation Remote 2.0](https://assetstore.unity.com/packages/tools/utilities/ar-foundation-remote-2-0-201106) asset. But make sure you have or bought [AR + GPS Location](https://assetstore.unity.com/packages/tools/integration/ar-gps-location-134882) asset, since this asset are the backbone of the project.   
+**3** IF error happen after importing the project, check ARFoundation plugin, Material UI Elements plugin, CountryCodePicker Plugin. There is slight customization on  their code. Better to copy directly from master project for those plugins folders.  
+**4** Audio files is not stored in this remote repo, so need to  add the files manually into folder.  
+**5** There is free plugin that not coming from Unity Asset Store which UniClipboard [Find it here](https://github.com/sanukin39/UniClipboard).  
+**6** Make a static class to store mapbox token and call it from RouteController.cs    
 
 
 # Version 1.1
