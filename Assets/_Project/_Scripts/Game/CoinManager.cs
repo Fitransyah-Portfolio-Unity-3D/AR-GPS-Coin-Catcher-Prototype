@@ -70,7 +70,7 @@ public class CoinManager : MonoBehaviour
     }
     public void UpdateCoinTaken() // Called by every Coin 
     {
-        // modifiy : coin value, coin UI in game, coin UI audio
+        // modifiy : coin value, coin UI in game, coin UI QRaudio
         coinCollected++;
         userCoinsUI.GetComponentInChildren<TMP_Text>().text = coinCollected.ToString();
         canvasAnimator.PlayInFixedTime("Coins_Flipping",0,1.5f);

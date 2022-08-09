@@ -11,6 +11,8 @@ TagManager:
   - DataManager
   - Backsound
   - Arrow
+  - CardManager
+  - QRCreator
   layers:
   - Default
   - TransparentFX

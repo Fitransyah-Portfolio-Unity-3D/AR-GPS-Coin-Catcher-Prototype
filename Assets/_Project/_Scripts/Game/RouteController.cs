@@ -25,14 +25,11 @@ public class RouteController : MonoBehaviour
 
     int listIndex;
     [SerializeField]
-    string MapboxToken = "pk.eyJ1IjoieHJ1bmxsYyIsImEiOiJjbDVtZnZvYXcwMTYzM2hwOHhtYjV1czViIn0.UMgF3FlHnPNjTIQ_GcWWzg";
+    string MapboxToken;
     private void Awake()
     {
         mapboxRoute.Settings.Language = MapboxApiLanguage.Indonesian;
-    }
-    private void Start()
-    {
-        
+        MapboxToken = MyMapboxToken.Token;
     }
     public LineType PathRendererType
     {
