@@ -41,12 +41,31 @@ public class MyQRCreator : MonoBehaviour
     Canvas QRCanvas;
 
     public string testingQR;
-    void Start()
+    private void Awake()
+    {
+        currentAlphaPromptPanel = 0f;
+        desiredAlphaPromptPanel = 0f;
+        promptPanelGO.SetActive(false);
+        previewImg = GameObject.FindGameObjectWithTag("RawImageQR").GetComponent<RawImage>();
+    }
+
+    void OnEnable()
     {
         CodeWriter.onCodeEncodeFinished += GetCodeImage;
         CodeWriter.onCodeEncodeError += errorInfo;
         cardManager.OnActiveCardSet += Create_Code;
         QRCanvas.gameObject.SetActive(false);
+    }
+    private void OnDestroy()
+    {
+        CodeWriter.onCodeEncodeFinished -= GetCodeImage;
+        CodeWriter.onCodeEncodeError -= errorInfo;
+        cardManager.OnActiveCardSet -= Create_Code;
+    }
+    private void Update()
+    {
+        promptPanel.alpha = currentAlphaPromptPanel;
+        currentAlphaPromptPanel = Mathf.MoveTowards(currentAlphaPromptPanel, desiredAlphaPromptPanel, fadeTime * Time.deltaTime);
     }
     public void Create_Code()
     {
@@ -109,17 +128,7 @@ public class MyQRCreator : MonoBehaviour
     float desiredAlphaPromptPanel;
     float fadeTime = 3f;
 
-    private void Awake()
-    {
-        currentAlphaPromptPanel = 0f;
-        desiredAlphaPromptPanel = 0f;
-        promptPanelGO.SetActive(false);
-    }
-    private void Update()
-    {
-        promptPanel.alpha = currentAlphaPromptPanel;
-        currentAlphaPromptPanel = Mathf.MoveTowards(currentAlphaPromptPanel, desiredAlphaPromptPanel, fadeTime * Time.deltaTime);
-    }
+
     public void CopyAddressToClipboard()
     {
         if (!string.IsNullOrEmpty(address.text))

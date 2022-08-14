@@ -92,6 +92,7 @@ Check full UI build and registration system demo [here](https://drive.google.com
 - If scene reload without location enabled spawn will return with empty result.
 - If location enabled after disabled, spawn will still run even with reload or without reload scene
 
+### <a id="3D-Direction-V1"></a> Header
 ## 3D Direction Feature Applied (Development)
 - If there any coins populated in 3D environment
 - Once trigger the Route Controller will find GameObject with prefab name starting from the nearest
@@ -143,3 +144,27 @@ Check full UI build and registration system demo [here](https://drive.google.com
     - CardData is costum class used for storing the JSON variable from server also used as public field by CardGenerator and CardManager
     - MyQRGenerator is handling QR Panel by receiving active card data from CardManager and use public function from CardFetcher(GetCardLogo();)   
 > Last update 9 August 2022
+
+## 3D Direction Feature Applied (Update)  
+- Using Transform.GetChild now RouteController.cs will populate direction based on the first child of ARLocationRoot gameobject (coin prefabs)  
+- Pressing next target will grab next index sibling.  
+- When pressing previous target on index 0 will give error message.  
+- Removing [previous logic](#3D-Direction-V1).  
+
+## MyXrunScene (All transaction history)
+- Adding fundamental for transaction history feature    
+- Setup TransactionFetcher using cardfetcher member number and active card currency  
+- Populate data on scroll rect with transaction prefab  
+- Transaction Generator for populate transaction data text  
+- Code fixed in my QR generator for bugs (RawImage issue)  
+- Setup space for next development (transaction filter button)  
+- TransactionFetcher.cs, TransactionGenerator.cs and TransactionData.cs relationship  
+    - TransactionFetcher.cs fetch data from server  
+    - Instantiate transaction prefab and make it child of content gameobject under ScrollRect gameobject  
+    - TransactionFethcer passing data from server to each transaction game object TransactionGenerator component  
+    - TransactionGenerator populate UI text element with the data  
+    - Important : Destroy all child gameobject from content ScrollRect before populate data  
+    - Important : Clear local list allTransactionData  
+    - Important : Resize the height in scroll rect content 
+    - Important : Adding 200 pixel if the list populate over index 4  
+> Last update 14 August 2022  

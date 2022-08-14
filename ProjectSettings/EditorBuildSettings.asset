@@ -29,7 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/_Scenes/SettingScene.unity
     guid: 13a739eb646028e4f96a0986ecb44439
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Project/_Scenes/MyXrunScene.unity
     guid: edf435593286dd446ad4b6a27a73bbd3
   - enabled: 0

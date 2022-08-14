@@ -23,6 +23,7 @@ public class CardManager : MonoBehaviour
         carouselToggler.OnSnapEnded += GetActiveToggle;
         cardFetcher.OnFirstCardsFetched += GetActiveToggle;
     }
+    // unsubscribe later
     void GetActiveToggle(Toggle activeToggle)
     {
         SetActiveCard(activeToggle);

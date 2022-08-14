@@ -79,23 +79,7 @@ public class DataManager2 : MonoBehaviour
                 string response = www.downloadHandler.text;
                 if (response == "OK")
                 {
-                    //if (PlayerPrefs.HasKey("email"))
-                    //{
-                    //    if (PlayerPrefs.GetString("email") == email.text.ToString())
-                    //    {
-                    //        OnLoginSuccesfull();
-                    //    }
-                    //    else
-                    //    {
-                    //        PlayerPrefs.SetString("email", email.text.ToString());
-                    //        OnLoginSuccesfull();
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    PlayerPrefs.SetString("email", email.text.ToString());
-                    //    OnLoginSuccesfull();
-                    //}
+                    //PlayerPrefs.SetString("email", )
                     OnLoginSuccesfull();
                     
                 }

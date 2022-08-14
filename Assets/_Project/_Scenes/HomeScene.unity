@@ -494,17 +494,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: face9fecfa650bc4bbe1d41800a5f7c2, type: 3}
---- !u!114 &1435167276 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3327009566213099138, guid: face9fecfa650bc4bbe1d41800a5f7c2, type: 3}
-  m_PrefabInstance: {fileID: 1435167275}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11405b24e585cae408041ea4e0b58a09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1887203260
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,18 +615,18 @@ PrefabInstance:
     - target: {fileID: 2098370287363380860, guid: fc91a27b794dd64478fab9b01cff0f02, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1435167276}
+      objectReference: {fileID: 1887203261}
     - target: {fileID: 2098370287363380860, guid: fc91a27b794dd64478fab9b01cff0f02, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2098370287363380860, guid: fc91a27b794dd64478fab9b01cff0f02, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UnderDevelopmentTrigger
+      value: MyXrunButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 2098370287363380860, guid: fc91a27b794dd64478fab9b01cff0f02, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UnderDevelopment, Assembly-CSharp
+      value: HomeManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2098370287363380860, guid: fc91a27b794dd64478fab9b01cff0f02, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

@@ -18,8 +18,12 @@ public class CardFetcher : MonoBehaviour
     [SerializeField]
     GameObject cardPrefab;
     AllCardData allCardData;
-    public string memberNumber;
+
+    [SerializeField]
+    string memberNumber;
     string serverEndpoint = "https://app.xrun.run/gateway.php?";
+
+    public string MemberNumber { get {return memberNumber;}}
 
     // membernumber : PlayerPrefs.GetString("member");
 
@@ -28,7 +32,7 @@ public class CardFetcher : MonoBehaviour
     public event Action OnCardsFetched;
     public event FirstCardFetchHandler OnFirstCardsFetched;
 
-    void Start()
+    void Awake()
     {
         StartCoroutine(RequestCardsData());
     }
@@ -61,7 +65,6 @@ public class CardFetcher : MonoBehaviour
                 AllCardData responseData = new AllCardData();
                 responseData = JsonConvert.DeserializeObject<AllCardData>(rawData);
                 allCardData = responseData;
-                Debug.Log(allCardData.Data.Count);
                 PopulateCard();
             }
         }

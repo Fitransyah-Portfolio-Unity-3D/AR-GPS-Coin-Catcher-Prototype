@@ -10,7 +10,7 @@ public class HomeManager : MonoBehaviour
     }
     public void MyXrunButtonClicked()
     {
-        // go to wallet page
+        SceneManager.LoadScene(8);
     }
     public void MyAdsButtonClicked()
     {
