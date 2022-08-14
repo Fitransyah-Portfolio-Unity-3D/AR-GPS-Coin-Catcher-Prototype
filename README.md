@@ -1,7 +1,7 @@
 # AR + GPS + Unity
 
 Specs :
-Unity Version 2020.3.36f1
+Unity Version 2020.3.36f1 --> Upgrade to 2020.3.37f1  
 Android and Ios target platform
 
 ## Unity Standard package : 
@@ -176,3 +176,4 @@ Check full UI build and registration system demo [here](https://drive.google.com
 - This data should be reset when the game start or logout scene  
 - As well the PlayerPrefs need to reset when logout   
 > Last update 14 August 2022  
+

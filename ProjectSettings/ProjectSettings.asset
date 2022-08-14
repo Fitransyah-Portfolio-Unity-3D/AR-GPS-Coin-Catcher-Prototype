@@ -231,6 +231,14 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 8777258354960178743, guid: 45c40c343fd4a354abad1139b5aae9e1, type: 2}
+  - {fileID: 4800000, guid: c9f956787b1d945e7b36e0516201fc76, type: 3}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -785,7 +793,10 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    7: ENABLE_AR_FOUNDATION_REMOTE_LOCATION_SERVICES
+    1: ENABLE_VOXELBUSTERS_ESSENTIAL_KIT
+    4: ENABLE_VOXELBUSTERS_ESSENTIAL_KIT
+    7: ENABLE_AR_FOUNDATION_REMOTE_LOCATION_SERVICES;ENABLE_VOXELBUSTERS_ESSENTIAL_KIT
+    13: ENABLE_VOXELBUSTERS_ESSENTIAL_KIT
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
