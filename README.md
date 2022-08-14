@@ -167,4 +167,12 @@ Check full UI build and registration system demo [here](https://drive.google.com
     - Important : Clear local list allTransactionData  
     - Important : Resize the height in scroll rect content 
     - Important : Adding 200 pixel if the list populate over index 4  
+
+## Player local data system
+- When completing login and register using PlayerPrefs store user email  
+- In home screen request data to server using email in PlayerPrefs  
+- Store that data in static class PlayerDataStatic.cs  
+- Use static data anywhere in the game  
+- This data should be reset when the game start or logout scene  
+- As well the PlayerPrefs need to reset when logout   
 > Last update 14 August 2022  

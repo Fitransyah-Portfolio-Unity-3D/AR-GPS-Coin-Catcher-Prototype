@@ -23,10 +23,6 @@ public class CardFetcher : MonoBehaviour
     string memberNumber;
     string serverEndpoint = "https://app.xrun.run/gateway.php?";
 
-    public string MemberNumber { get {return memberNumber;}}
-
-    // membernumber : PlayerPrefs.GetString("member");
-
     public delegate void FirstCardFetchHandler(Toggle firstCardToggle);
 
     public event Action OnCardsFetched;
@@ -34,6 +30,7 @@ public class CardFetcher : MonoBehaviour
 
     void Awake()
     {
+    memberNumber = PlayerDataStatic.Member;
         StartCoroutine(RequestCardsData());
     }
     IEnumerator RequestCardsData()

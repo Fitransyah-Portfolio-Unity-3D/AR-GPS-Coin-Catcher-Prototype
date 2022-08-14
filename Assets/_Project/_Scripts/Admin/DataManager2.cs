@@ -19,11 +19,7 @@ public class DataManager2 : MonoBehaviour
 
     [Header("Controlling")]
     [SerializeField] Button loginButton;
-    private void Update()
-    {
-       bool result =  IsRequiredFieldsAreEmpty();
-       Debug.Log(result);
-    }
+
     public void OnClickLoginButton()
     {
         
@@ -62,6 +58,7 @@ public class DataManager2 : MonoBehaviour
         query["act"] = "login-checker";
         query["email"] = email.text.ToString();
         query["pin"] = password.text.ToString();
+        query["code"] = "3114";
         uriBuilder.Query = query.ToString();
         endpoint = uriBuilder.ToString();
 
@@ -79,7 +76,7 @@ public class DataManager2 : MonoBehaviour
                 string response = www.downloadHandler.text;
                 if (response == "OK")
                 {
-                    //PlayerPrefs.SetString("email", )
+                    PlayerPrefs.SetString("email", email.text.ToString());
                     OnLoginSuccesfull();
                     
                 }

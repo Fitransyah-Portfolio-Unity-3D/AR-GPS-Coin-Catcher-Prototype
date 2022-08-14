@@ -93,6 +93,7 @@ public class DataManager1 : MonoBehaviour
         var query = HttpUtility.ParseQueryString(uriBuilder.Query);
         query["act"] = "login-04-email";
         query["email"] = email.text.ToString();
+        query["code"] = "3114";
         uriBuilder.Query = query.ToString();
         endpoint = uriBuilder.ToString();
 
@@ -149,17 +150,13 @@ public class DataManager1 : MonoBehaviour
         newMember.Age = ageValue; //Int16.Parse(ageValue);
         newMember.Gender = sexValue; //Int16.Parse(sexValue);
 
-        Debug.Log(newMember.Age + newMember.Gender);
-
-        var jsonNewMember = JsonConvert.SerializeObject(newMember);
-        Debug.Log(jsonNewMember.ToString());
-
         // building query
         string endpoint = serverEndpoint;
         var uriBuilder = new UriBuilder(endpoint);
         var query = HttpUtility.ParseQueryString(uriBuilder.Query);
         query["act"] = "check-02-email";
         query["email"] = newMember.Email ;
+        query["code"] = "3114";
         uriBuilder.Query = query.ToString();
         endpoint = uriBuilder.ToString();
 
@@ -177,7 +174,6 @@ public class DataManager1 : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
                 // if request succesfull bring up email verfication code panel
                 OnEmailVerificationSent();
                 
@@ -204,6 +200,7 @@ public class DataManager1 : MonoBehaviour
         query["act"] = "login-03-email";
         query["email"] = newMember.Email;
         query["code"] = verificationCodeInputField.text;
+        query["code"] = "3114";
         uriBuilder.Query = query.ToString();
         endpoint = uriBuilder.ToString();
 
@@ -226,7 +223,7 @@ public class DataManager1 : MonoBehaviour
                 var rawData = www.downloadHandler.text;
                 ResponseData responseData = new ResponseData();
                 responseData = JsonConvert.DeserializeObject<ResponseData>(rawData);
-                Debug.Log(responseData.Data);
+
                 if (responseData.Data == "false")
                 {
                     // update text verification panel
@@ -248,9 +245,7 @@ public class DataManager1 : MonoBehaviour
     }
     IEnumerator RegisterNewMember()
     {
-        Debug.Log(newMember.Mobilecode);
-        Debug.Log(newMember.Region);
-        
+
         // building query
         string endpoint = serverEndpoint;
         var uriBuilder = new UriBuilder(endpoint);
@@ -261,6 +256,7 @@ public class DataManager1 : MonoBehaviour
         query["mobilecode"] = newMember.Mobilecode;
         query["mobile"] = newMember.Mobile;
         query["countrycode"] = "ID";
+        query["code"] = "3114";
         uriBuilder.Query = query.ToString();
         endpoint = uriBuilder.ToString();
 
@@ -280,7 +276,7 @@ public class DataManager1 : MonoBehaviour
             else
             {
                 Debug.Log("Registration result : \n" + www.downloadHandler.text);
-                //PlayerPrefs.SetString("email", newMember.Email);
+                PlayerPrefs.SetString("email", newMember.Email);
                 OnRegistrationSuccesfull();             
             }
 

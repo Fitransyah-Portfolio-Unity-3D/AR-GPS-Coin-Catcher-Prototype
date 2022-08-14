@@ -9,7 +9,6 @@ using UnityEngine.Networking;
 
 public class TransactionFetcher : MonoBehaviour
 {
-    [SerializeField] CardFetcher cardFetcher;
     [SerializeField] CardManager cardManager;
     [SerializeField] ScrollRect transactionScrollRect;
     [SerializeField] RectTransform transactionParentTransform;
@@ -32,7 +31,7 @@ public class TransactionFetcher : MonoBehaviour
     }
     void GenerateTransactionHistory()
     {
-        memberNumber = cardFetcher.MemberNumber;
+        memberNumber = PlayerDataStatic.Member;
         activeCardCurrency = cardManager.activeCardData.currency;
         StartCoroutine(RequestTransactionData());
     }
@@ -51,7 +50,7 @@ public class TransactionFetcher : MonoBehaviour
         uriBuilder.Query = query.ToString();
         endpoint = uriBuilder.ToString();
 
-        // requesting cards data
+        // requesting transaction data
         using (UnityWebRequest www = UnityWebRequest.Get(endpoint))
         {
 
